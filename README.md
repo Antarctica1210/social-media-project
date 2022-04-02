@@ -17,3 +17,9 @@ This is a Instargam-like social media app, allowing users add posts, add like an
 User and Post object finished
 
 posts CRUD and users CRUD finished
+
+## 02/04/2022
+
+webpage UIs are completed (include simple functions like and dislike), the connection between webpages and server will be the next step
+
+Currently, different pages can be see by changing tags in App.js file: Home, Profile, Register and Login.
