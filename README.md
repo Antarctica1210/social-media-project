@@ -23,3 +23,7 @@ posts CRUD and users CRUD finished
 webpage UIs are completed (include simple functions like and dislike), the connection between webpages and server will be the next step
 
 Currently, different pages can be see by changing tags in App.js file: Home, Profile, Register and Login.
+
+## 05/04/2022
+
+Router has been used to navigate to different pages

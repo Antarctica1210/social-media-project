@@ -1,6 +1,7 @@
-import React from 'react'
-import "./topbar.css"
-import { Search, Person, Chat, Notifications } from "@material-ui/icons"
+import React from 'react';
+import "./topbar.css";
+import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import {Link} from "react-router-dom";
 
 //create the bar on the top always shown on the top screen
 export default function Topbar() {
@@ -8,7 +9,9 @@ export default function Topbar() {
         <div className="topbarContainer">
             {/* logo of the page */}
             <div className="topbarLeft">
-                <span className="logo">Social Zone</span>
+                <Link to="/" style={{textDecoration:"none"}}>
+                    <span className="logo">Social Zone</span>
+                </Link>
             </div>
             {/* search tools */}
             <div className="topbarCenter">

@@ -9,6 +9,8 @@ export default function Post({post}) {
     const [like, setLike] = useState(post.like)
     //default isliked is false
     const [isLiked, setIsLiked] = useState(false)
+    //environment variable PF = public folder
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
     const likeHandler = () => {
         //if is false (you didnot click the like button) 
@@ -34,13 +36,13 @@ export default function Post({post}) {
                 {/* main content */}
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img className='postImg' src={post.photo} alt="" />
+                    <img className='postImg' src={PF + post.photo} alt="" />
                 </div>
                 {/* bottom part */}
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <img className='likeIcon' src="assets/like.png" onClick={likeHandler} alt="" />
-                        <img className='likeIcon' src="assets/heart.png" onClick={likeHandler} alt="" />
+                        <img className='likeIcon' src={`${PF}like.png`} onClick={likeHandler} alt="" />
+                        <img className='likeIcon' src={`${PF}heart.png`} onClick={likeHandler} alt="" />
                         <span className="postLikeCounter">{like} people like it</span>
                     </div>
                     {/* comments */}
