@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import {Link} from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+
 
 //create the bar on the top always shown on the top screen
 export default function Topbar() {
+
+    const {user} = useContext(AuthContext);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
     return (
         <div className="topbarContainer">
             {/* logo of the page */}
@@ -44,7 +50,10 @@ export default function Topbar() {
                 </div>
 
                 {/* topbar image */}
-                <img src="/assets/person/1.jpeg" alt="" className="topbarImg" />
+                <Link to={`/profile/${user.username}`}>
+                    <img src={user.profilePicture? PF + user.profilePicture : PF + "person/noAvatar.png" } alt="" className="topbarImg" />
+
+                </Link>
             </div>
         </div>
     )

@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useContext, useRef } from 'react'
 import "./login.css"
+import {loginCall} from "../../apiCalls"
+import { AuthContext } from '../../context/AuthContext';
+
+
 
 export default function Login() {
+
+    const email = useRef();
+    const password = useRef();
+    const {user, isFetching, error, dispatch} = useContext(AuthContext)
+
+    const handleClick = (e) =>{
+        e.preventDefault();
+        loginCall({email:email.current.value, password:password.current.value}, dispatch);
+    }
+
+    console.log(user);
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -10,13 +26,15 @@ export default function Login() {
                     <span className="loginDesc">Connect with friends and the world around you</span>
                 </div>
                 <div className="loginRight">
-                    <div className="loginBox">
-                        <input placeHolder="Email" className="loginInput"></input>
-                        <input placeHolder="Password" className="loginInput"></input>
-                        <button className="loginButton">Log In</button>
+                    <form className="loginBox" onSubmit={handleClick}>
+                        <input placeholder="Email" type="email" required className="loginInput" ref={email}></input>
+                        <input placeholder="Password" type="password" required minLength="6" className="loginInput" ref={password}></input>
+                        <button className="loginButton" type='submit' disabled={isFetching}>
+                            {isFetching? "Loading...": "Log In"}
+                        </button>
                         <span className="loginForgot">Forgot Password?</span>
-                        <button className="loginRegisterButton">Create a new account</button>
-                    </div>
+                        <button className="loginRegisterButton">{isFetching? "Loading...": "Log In"}</button>
+                    </form>
                 </div>
             </div>
         </div>
