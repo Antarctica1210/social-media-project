@@ -1,9 +1,37 @@
 import "./sidebar.css"
 import { RssFeed, Chat, PlayCircleFilledOutlined, Group, Bookmark, HelpOutline, WorkOutline, Event, School } from "@material-ui/icons"
 import CloseFriend from "../closeFriend/CloseFriend"
-import {Users} from "../../dummyData"
+// import {Users} from "../../dummyData"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { Link } from "react-router-dom";
+
 
 export default function Sidebar() {
+
+    //set allUsers
+    const [allUsers, setallUsers] = useState([]);
+
+    //fetch all users
+    useEffect(() =>{
+        const fetchAllUsers = async () =>{
+            try {
+                const res = await axios.get("/users/allusers");
+                console.log(res.data);
+                setallUsers(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+            
+        };
+        fetchAllUsers();
+    },[]);
+
+
+
+
+
+
     return (
         <div className="sidebar">
             <div className="sidebarWrapper">
@@ -47,10 +75,14 @@ export default function Sidebar() {
                     <button className="sidebarButton">Show More</button>
                     {/* list all users================================================================================ */}
                     <hr className="sidebarHr"/>
+                    {/* <h2>All users</h2> */}
                     <ul className="sidebarFriendList">
                         {/* list all the friends */}
-                        {Users.map((user) => (
-                            <CloseFriend key={user.id} user={user}/>
+                        {allUsers.map((user) => (
+                            <Link to={"/profile/" + user.username} style={{textDecoration: "none"}}>
+                                <CloseFriend key={user._id} user={user}/>
+                            </Link>
+                            
                         ))}
                     </ul>
                 </ul>

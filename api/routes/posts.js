@@ -1,5 +1,6 @@
 // update post, add post, delete post, get post
 const router = require("express").Router();
+const { stringify } = require("nodemon/lib/utils");
 const Post = require("../models/Post");
 const User = require("../models/User");
 
@@ -41,13 +42,15 @@ router.delete("/:id", async (req, res) => {
     try{
         //find the post with the id
         const post = await Post.findById(req.params.id);
+        console.log(post.userId + " : " + req.body.userId);
+        
         //if the post is ours
         if(post.userId === req.body.userId){
             //update all the contents in the request body
             await post.deleteOne();
             res.status(200).json("Your post has been deleted.");
         }else{
-            res.status(403).json("You can only delete your own id");
+            res.status(403).json("You can only delete your own post");
         }
     }catch(err){
         res.status(500).json(err);
@@ -111,6 +114,7 @@ router.put("/:id/like", async (req, res) => {
     try{
         //find the post with the id
         const post = await Post.findById(req.params.id);
+        console.log("like/dislike ====>"+post.userId + " : " + req.body.userId);
         //check the like-array include the user or not
         if(!post.likes.includes(req.body.userId)){
             //add the userId (your id) into the likes-array | like post

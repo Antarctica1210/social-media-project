@@ -19,6 +19,12 @@ const multer = require("multer");
 
 const path = require("path");
 
+//cors
+// const cors = require('cors');
+// const corsOptions = require('./config/corsOptions');
+// app.use(cors(corsOptions));
+
+
 /*===========================get routes from routes folder==============================*/
 
 
@@ -54,17 +60,20 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         cb(null, req.body.name);
+        // cb(null, file.originalname);
+
     },
 })
 
-const upload = multer({storage});
+const upload = multer({ storage: storage});
 app.post("/api/upload", upload.single("file"), (req, res) => {
     try {
-        return res.status(200).json("File uploaded successfully.");
+        console.log(storage.getFilename)
+        return res.status(200).json("File uploded successfully");
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
-})
+});
 
 /*===========================route display on browser==============================*/
 

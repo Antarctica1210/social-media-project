@@ -35,6 +35,7 @@ router.post("/login", async (req,res) =>{
         // check in the database if exist a user with this email
         const user = await User.findOne({email: req.body.email});
         // work as if statement, if first = true(user is not found, user is undefined now), return the later results(404)
+        // console.log(user);
         !user && res.status(404).json("user not found");
 
         // check password

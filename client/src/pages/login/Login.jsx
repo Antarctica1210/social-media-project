@@ -2,6 +2,7 @@ import React, { useContext, useRef } from 'react'
 import "./login.css"
 import {loginCall} from "../../apiCalls"
 import { AuthContext } from '../../context/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -18,6 +19,14 @@ export default function Login() {
 
     console.log(user);
 
+    const history = useHistory();
+
+    //redirect to register
+    const toRegister = () =>{
+        let path = "/register";
+        history.push(path);
+    }
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -32,8 +41,10 @@ export default function Login() {
                         <button className="loginButton" type='submit' disabled={isFetching}>
                             {isFetching? "Loading...": "Log In"}
                         </button>
-                        <span className="loginForgot">Forgot Password?</span>
-                        <button className="loginRegisterButton">{isFetching? "Loading...": "Log In"}</button>
+                        <span className="haveAccount">Don't have an Account?</span>
+                        <button onClick={toRegister} className="loginRegisterButton">
+                            {isFetching? "Loading...": "Sign up"}
+                        </button>
                     </form>
                 </div>
             </div>

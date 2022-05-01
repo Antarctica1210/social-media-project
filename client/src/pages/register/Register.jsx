@@ -3,6 +3,8 @@ import { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "./register.css";
 
+
+
 export default function Register() {
 
     const username = useRef();
@@ -33,6 +35,13 @@ export default function Register() {
         }
     }
 
+    //direct to login
+    
+    const toLogin = () =>{
+        let path = "/login";
+        history.push(path);
+    }
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -49,7 +58,8 @@ export default function Register() {
                         <input placeholder="Password" required ref={password} className="loginInput" type="password" minLength="6"/>
                         <input placeholder="Password Again" required ref={passwordAgain} className="loginInput" type="password"/>
                         <button className="loginButton" type="submit">Sign Up</button>
-                        <button className="loginRegisterButton">
+                        <span className="haveAccount">Already have an Account?</span>
+                        <button onClick={toLogin} className="loginRegisterButton">
                             Log into Account
                         </button>
                     </form>

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import "./post.css"
-import { MoreVert } from '@material-ui/icons'
+import { MoreVert, DeleteOutlined, Message } from '@material-ui/icons'
 // import { Users} from "../../dummyData"
 import { useState } from 'react'
 import axios from "axios";
@@ -8,6 +8,11 @@ import axios from "axios";
 import {format} from "timeago.js";
 import {Link} from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
+import { Modal, message, } from "antd";
+import "antd/dist/antd.css";
+const {confirm} = Modal;
+
+
 
 
 
@@ -49,6 +54,27 @@ export default function Post({post}) {
         setIsLiked(!isLiked)
     }
 
+    const delPost =  () =>{
+        confirm({
+            title:"Are you sure to delete this post?",
+            content:"This post will be delete",
+            async onOk(){
+                try {
+                    
+                    const res = await axios.delete("/posts/" + post._id, {data:{userId:currentUser._id}});
+                    window.location.reload();
+                    // console.log(res.data);
+                    message.success(res.data);
+                } catch (error) {
+                    message.success("delete fail");
+                }
+            },
+            onCancel(){
+                message.success("You cancal your delete")
+            }
+        });
+    }
+
     return (
         <div className='post'>
             <div className="postWrapper">
@@ -62,7 +88,9 @@ export default function Post({post}) {
                         <span className="postDate">{format(post.createdAt)}</span>
                     </div>
                     <div className="postTopRight">
-                        <MoreVert />
+                        {/* show delete or not by judging post id and user id */}
+                        {(currentUser._id === post.userId)? <DeleteOutlined onClick={delPost}/> : ""}
+                        
                     </div>
                 </div>
                 {/* main content */}

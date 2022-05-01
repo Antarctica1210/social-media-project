@@ -34,9 +34,17 @@ export default function Rightbar({ user }) {
                 console.log(err);
             }
         };
+        const getcurrentUserFriends = async () =>{
+            try {
+                const friendList = await axios.get("/users/friends/" + currentUser._id);
+                setFriends(friendList.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
         //call function
-        getFriends();
-    },[user])
+        user? getFriends(): getcurrentUserFriends();
+    },[user, currentUser])
 
     //follow and unfollow btn function
     const handleClick = async () => {
@@ -61,7 +69,7 @@ export default function Rightbar({ user }) {
                 <div className="birthdayContainer">
                     <img className="birthdayImg" src={`${PF}gift.png`} alt="" />
                     <span className="birthdayText">
-                        <b>Gin Tigger</b> and <b>3 other friends</b> have a birthday today!
+                        <b>{currentUser.username}</b> open to reveal your gift today!
                     </span>
                 </div>
                 <img className="rightbarAd" src={`${PF}soul.jpeg`} alt="" />
@@ -69,8 +77,8 @@ export default function Rightbar({ user }) {
                 <h4 className="rightbarTitle">Online Friends</h4>
                 <ul className="rightbarFriendList">
                     {/* list all the friends */}
-                    {Users.map((user) => (
-                        <Online key={user.id} user={user} />
+                    {friends.map((user) => (
+                        <Online key={user._id} user={user} />
                     ))}
                 </ul>
             </>

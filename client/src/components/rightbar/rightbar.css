@@ -129,6 +129,10 @@
     cursor: pointer;
 }
 
+.rightbarFollowingName{
+    text-align: center;
+}
+
 .rightbarFollowButton:focus {
     outline: none;
 }
