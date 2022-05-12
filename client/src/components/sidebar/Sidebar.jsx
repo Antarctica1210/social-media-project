@@ -79,7 +79,7 @@ export default function Sidebar() {
                     <ul className="sidebarFriendList">
                         {/* list all the friends */}
                         {allUsers.map((user) => (
-                            <Link to={"/profile/" + user.username} style={{textDecoration: "none"}}>
+                            <Link key={user._id} to={"/profile/" + user.username} style={{textDecoration: "none"}}>
                                 <CloseFriend key={user._id} user={user}/>
                             </Link>
                             

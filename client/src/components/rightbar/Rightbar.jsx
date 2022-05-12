@@ -6,6 +6,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {Add, Remove} from "@material-ui/icons";
+import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+import RightBarFriends from "../rightBarFriends/RightBarFriends";
+import { Carousel, Image } from 'antd';
+
 
 
 export default function Rightbar({ user }) {
@@ -21,6 +25,7 @@ export default function Rightbar({ user }) {
     console.log(currentUser.followings);
     console.log(user);
     console.log(currentUser.followings.includes(user?._id));
+    console.log("followed:" + followed);
     
 
 
@@ -62,6 +67,17 @@ export default function Rightbar({ user }) {
         }
     };
 
+    const contentStyle = {
+        
+        color: 'black',
+        lineHeight: '100px',
+        textAlign: 'center',
+        background: 'white',
+        width: "540px",
+        borderRadius: "10px",
+        margin: "20px 0"
+    };
+
     const HomeRightbar = () => {
 
         return (
@@ -72,7 +88,35 @@ export default function Rightbar({ user }) {
                         <b>{currentUser.username}</b> open to reveal your gift today!
                     </span>
                 </div>
-                <img className="rightbarAd" src={`${PF}soul.jpeg`} alt="" />
+                {/* advertisements */}
+                <div className="rightbarAd">
+                    
+                    <Carousel effect="fade" autoplay style={contentStyle}>
+                        {/* <div>
+                            <img className="rightbarAd" src={`${PF}soul.jpeg`} alt="" />
+                        </div> */}
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar01.jpg`} alt="" />
+                        </div>
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar05.webp`} alt="" />
+                        </div>
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar06.jpg`} alt="" />
+                        </div>
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar03.jpg`} alt="" />
+                        </div>
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar07.jpg`} alt="" />
+                        </div>
+                        <div>
+                            <img className="rightbarAd" src={`${PF}Pixar08.jpg`} alt="" />
+                        </div>
+                        
+                    </Carousel>
+                </div>
+                {/* <img className="rightbarAd" src={`${PF}soul.jpeg`} alt="" /> */}
                 {/* online friends list */}
                 <h4 className="rightbarTitle">Online Friends</h4>
                 <ul className="rightbarFriendList">
@@ -87,6 +131,32 @@ export default function Rightbar({ user }) {
     }
 
     const ProfileRightbar = () => {
+
+        //environment variable PF = public folder
+        const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
+        //set profimg and coverimg
+        
+        const [avatar, setAvatar] = useState("");
+
+        // Create a reference to the file we want to download
+        const storage = getStorage();
+
+        //avatar
+        useEffect(()=>{
+            if (user.profilePicture){
+
+                // Create a reference to the file we want to download
+                
+                const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+                getDownloadURL(starsRef)
+                    .then((url) => {
+                        // Insert url into an <img> tag to "download"
+                        setAvatar(url);
+                    })
+            }
+        }, [user.profilePicture, storage]);
+
         return (
             <>
             {/* if user is not you, you can see the follow btn  */}
@@ -108,22 +178,15 @@ export default function Rightbar({ user }) {
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">Relationship:</span>
-                        <span className="rightbarInfoValue">{user.relationship === 1? "Single": user.relationship === 1? "Married": "-"}</span>
+                        <span className="rightbarInfoValue">{user.relationship === 1? "Single": user.relationship === 2? "Married": "-"}</span>
                     </div>
                 </div>
                 {/* ==================================================Friends block============================================================================ */}
                 <h4 className="rightbarTitle">User friends</h4>
                 <div className="rightbarFollowings">
                     {friends.map((friend)=>(
-                        <Link to={"/profile/" + friend.username} style={{textDecoration: "none"}}>
-                            <div className="rightbarFollowing">
-                                <img
-                                src={friend.profilePicture? PF+friend.profilePicture: PF+"person/noAvatar.png"}
-                                alt=""
-                                className="rightbarFollowingImg"
-                                />
-                                <span className="rightbarFollowingName">{friend.username}</span>
-                            </div>
+                        <Link key={friend.username} to={"/profile/" + friend.username} style={{textDecoration: "none"}}>
+                            <RightBarFriends key={friend._id} user={friend}/>
                         </Link>
                     ))}
                 </div>

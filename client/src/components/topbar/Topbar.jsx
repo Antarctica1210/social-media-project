@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import {Link} from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+//firebase
+import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+
 
 
 //create the bar on the top always shown on the top screen
@@ -10,6 +13,28 @@ export default function Topbar() {
 
     const {user} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+    //set profimg and coverimg
+    
+    const [avatar, setAvatar] = useState("");
+
+    // Create a reference to the file we want to download
+    const storage = getStorage();
+
+    //avatar
+    useEffect(()=>{
+        if (user.profilePicture){
+
+            // Create a reference to the file we want to download
+            
+            const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+            getDownloadURL(starsRef)
+                .then((url) => {
+                    // Insert url into an <img> tag to "download"
+                    setAvatar(url);
+                })
+        }
+    }, [user.profilePicture, storage]);
 
     return (
         <div className="topbarContainer">
@@ -29,7 +54,9 @@ export default function Topbar() {
             {/* links, messages */}
             <div className="topbarRight">
                 <div className="topbarLinks">
-                    <span className="topbarlink">Homepage</span>
+                    <Link to="/" style={{textDecoration:"none", color: "white"}}>
+                        <span className="topbarlink">Homepage</span>
+                    </Link>
                     <span className="topbarlink">Timeline</span>
                 </div>
                 {/* icons */}
@@ -51,7 +78,7 @@ export default function Topbar() {
 
                 {/* topbar image */}
                 <Link to={`/profile/${user.username}`}>
-                    <img src={user.profilePicture? PF + user.profilePicture : PF + "person/noAvatar.png" } alt="" className="topbarImg" />
+                    <img src={user.profilePicture? avatar : PF + "person/noAvatar.png" } alt="" className="topbarImg" />
 
                 </Link>
             </div>

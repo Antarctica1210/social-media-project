@@ -48,3 +48,25 @@
 .profileRightBottom{
     display: flex;
 }
+
+.goBack{
+    border: none;
+    padding:1px 7px;
+    border-radius: 5px;
+    background-color: rgb(133, 143, 163);
+    font-weight: 500;
+    /* margin-right: 20px; */
+    cursor: pointer;
+    color: white;
+}
+
+.goToEdit{
+    border: none;
+    padding:1px 7px;
+    border-radius: 5px;
+    background-color: rgb(133, 143, 163);
+    font-weight: 500;
+    /* margin-right: 20px; */
+    cursor: pointer;
+    color: white;
+}

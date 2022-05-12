@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import "./post.css"
-import { MoreVert, DeleteOutlined, Message } from '@material-ui/icons'
+import { DeleteOutlined } from '@material-ui/icons'
 // import { Users} from "../../dummyData"
 import { useState } from 'react'
 import axios from "axios";
@@ -8,9 +8,17 @@ import axios from "axios";
 import {format} from "timeago.js";
 import {Link} from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
-import { Modal, message, } from "antd";
+//ant design
+import { Modal, message, Image, Button } from "antd";
 import "antd/dist/antd.css";
+//firebase
+import { getStorage, ref, getDownloadURL,  deleteObject } from "firebase/storage";
+//comments components
+import Comments from "../comments/Comments";
+
+//ant design components
 const {confirm} = Modal;
+
 
 
 
@@ -27,6 +35,10 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
     //use user from context
     const {user:currentUser} = useContext(AuthContext);
+    //post photo
+    const [photo, setPhoto] = useState("");
+
+    
 
     //judge the post like/dislike status
     useEffect(() => {
@@ -41,6 +53,21 @@ export default function Post({post}) {
         };
         fetchUser();
     }, [post.userId]);
+
+    //get photo
+    useEffect(()=>{
+        if (post.img){
+
+            // Create a reference to the file we want to download
+            const storage = getStorage();
+            const starsRef = ref(storage, 'public/images/' + post.img);
+            getDownloadURL(starsRef)
+                .then((url) => {
+                    // Insert url into an <img> tag to "download"
+                    setPhoto(url);
+                })
+        }
+    }, [post.img]);
 
     const likeHandler = () => {
         try {
@@ -61,10 +88,31 @@ export default function Post({post}) {
             async onOk(){
                 try {
                     
+
                     const res = await axios.delete("/posts/" + post._id, {data:{userId:currentUser._id}});
-                    window.location.reload();
-                    // console.log(res.data);
-                    message.success(res.data);
+
+                    const storage = getStorage();
+                    // Create a reference to the file to delete
+                    const desertRef = ref(storage, 'public/images/' + post.img);
+                    console.log(post.img);
+                    //if has post.img delete img, if no img, just reload window
+                    if(post.img){
+
+                        // Delete the file
+                        deleteObject(desertRef).then(() => {
+                            // File deleted successfully
+                            window.location.reload();
+                            message.success(res.data);
+                        }).catch((error) => {
+                            // Uh-oh, an error occurred!
+                            message.success("delete photo fail");
+                        });
+                    }else{
+                        // File deleted successfully
+                        window.location.reload();
+                        // console.log(res.data);
+                        message.success(res.data);
+                    }
                 } catch (error) {
                     message.success("delete fail");
                 }
@@ -75,6 +123,29 @@ export default function Post({post}) {
         });
     }
 
+    //set profimg and coverimg
+    
+    const [avatar, setAvatar] = useState("");
+
+    // Create a reference to the file we want to download
+    const storage = getStorage();
+
+    //avatar
+    useEffect(()=>{
+        if (user.profilePicture){
+
+            // Create a reference to the file we want to download
+            
+            const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+            getDownloadURL(starsRef)
+                .then((url) => {
+                    // Insert url into an <img> tag to "download"
+                    setAvatar(url);
+                })
+        }
+    }, [user.profilePicture, storage]);
+
+
     return (
         <div className='post'>
             <div className="postWrapper">
@@ -82,7 +153,7 @@ export default function Post({post}) {
                 <div className="postTop">
                     <div className="postTopLeft">
                         <Link to={`profile/${user.username}`}>
-                            <img className='postProfileImg' src={user.profilePicture? PF + user.profilePicture : PF + "person/noAvatar.png"} alt="" />
+                            <img className='postProfileImg' src={user.profilePicture? avatar : PF + "person/noAvatar.png"} alt="" />
                         </Link>
                         <span className="postUsername">{user.username}</span>
                         <span className="postDate">{format(post.createdAt)}</span>
@@ -95,8 +166,19 @@ export default function Post({post}) {
                 </div>
                 {/* main content */}
                 <div className="postCenter">
-                    <span className="postText">{post?.desc}</span>
-                    <img className='postImg' src={PF + post.img} alt="" />
+                    <div className="postText">{post?.desc}</div>
+                    
+                    {post.img?<Image className='postImg' src={photo} alt="" />: ""}
+                    {/* <Image
+                        
+                        preview={{
+                        visible,
+                        src: photo,
+                        onVisibleChange: value => {
+                            setVisible(value);
+                        },
+                        }}
+                    /> */}
                 </div>
                 {/* bottom part */}
                 <div className="postBottom">
@@ -107,9 +189,19 @@ export default function Post({post}) {
                     </div>
                     {/* comments */}
                     <div className="postBottomRight">
-                        <span className="postCommentText">{post.comment} comments</span>
+                        {/* <span className="postCommentText" > comments</span> */}
+                        {/* <Button type="primary" onClick={() => setVisible(true)} ghost>
+                            preview
+                        </Button> */}
                     </div>
                 </div>
+                <div className='bottomEnd'>
+
+                    <Comments post={post} />
+                </div>
+                    
+                    
+                    
             </div>
             
         </div>

@@ -18,6 +18,12 @@ const AuthReducer = (state, action) => {
                 isFetching: false,
                 error: true,
             };
+        case "LOGOUT":
+            return{
+                user: null,
+                isFetching: false,
+                error: false,
+            };
         case "FOLLOW":
             return {
                 // means consider all states (user, isFetching, error) and paste here
@@ -37,6 +43,27 @@ const AuthReducer = (state, action) => {
                         (following) => following !== action.payload
                     ),
                 },
+            };
+        case "EDIT_INFO":
+            return{
+                ...state,
+                user: {
+                    ...state.user,
+                    city: action.payload.city,
+                    from: action.payload.from,
+                    relationship: action.payload.relationship,
+                    desc: action.payload.desc
+                }
+            };
+        case "CHANGE_PHOTO":
+            return{
+                ...state,
+                user: {
+                    ...state.user,
+                    coverPicture: action.payload.coverPicture,
+                    profilePicture: action.payload.profilePicture,
+            
+                }
             };
         default:
             return state;

@@ -1,0 +1,130 @@
+.editInfo{
+    flex: 5.5;
+}
+
+.editInfoWrapper{
+    padding: 20px;
+}
+
+.pictureBlock{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    /* margin: 10px 0; */
+}
+
+.profileCoverSmall{
+    height: 280px;
+    position: relative;
+}
+
+.profileCoverImgSmall{
+    width: 100%;
+    height: 67%;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.profileUserImgSmall{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 110px;
+    border: 3px solid white;
+}
+
+.infoList{
+    width: 100%;
+    /* height: 900px; */
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    margin: 30px 0;
+}
+
+
+
+.infolistWrapper{
+    padding: 25px;
+}
+
+.infoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoTitle{
+    margin: 0 10px;
+}
+
+/* .infoForm > label {
+    font-size: 16px;
+    margin-top: 10px;
+} */
+
+
+
+/* .infoForm > TextField {
+    
+    color: gray;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid lightgray;
+} */
+
+.formControl{
+    margin: 10px;
+}
+.submitWrapper{
+    
+    margin: 10px;
+}
+
+.submitBtn{
+    display: block;
+    margin: 10px;
+}
+
+#coverImgBtn{
+    position: absolute;
+
+}
+
+.shareCancelImgSmall {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.shareCancelImgSmall2 {
+    position: absolute;
+    top: 187px;
+    right: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+#profileImgBtn{
+    position: relative;
+    
+    z-index: 10;
+}
+
+.passwordJudge{
+    margin: 1px 10px;
+    color: red;
+}
+
+
+

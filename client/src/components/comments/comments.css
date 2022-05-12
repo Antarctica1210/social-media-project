@@ -1,0 +1,12 @@
+.comment-wrapper{
+    display: flex;
+}
+
+.add-comment-block{
+    display: flex;
+    flex-direction:row;
+}
+
+.add-comment-block>input{
+    width: 60%;
+}

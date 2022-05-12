@@ -1,4 +1,4 @@
-//connect to database and initialise the user objects
+1//connect to database and initialise the user objects
 const mongoose = require("mongoose");
 
 //objects used to accept the json files and pack them into objects
@@ -19,6 +19,10 @@ const PostSchema = new mongoose.Schema({
         type:Array,
         default:[]
     },
+    comments:{
+        type:Array,
+        default:[]
+    }
 },
 // each time add/updata/delete post get a time stamp
 {timestamps:true}

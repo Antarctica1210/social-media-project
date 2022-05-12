@@ -19,6 +19,8 @@ router.post("/register", async (req,res)=>{
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
+            profilePicture: "person/avatar-1.png",
+            coverPicture: "cover/noCover.png"
         });
 
         // save user

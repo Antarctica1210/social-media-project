@@ -43,8 +43,12 @@
     margin: 20px 0;
 }
 
+.postText{
+    margin-bottom: 20px;
+}
+
 .postImg {
-    margin-top: 20px;
+    /* padding-top: 20px; */
     width: 100%;
     max-height: 600px;
     object-fit: contain;

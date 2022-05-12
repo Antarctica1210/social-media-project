@@ -37,6 +37,52 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+//add comments
+router.put("/comment/:id", async (req, res) => { 
+    try{
+        //find the post with the id
+        const post = await Post.findById(req.params.id);
+        
+        //update all the contents in the request body
+        await post.updateOne({$push:{comments: req.body.comments}});
+        res.status(200).json("Your comments has been added.");
+        
+    }catch(err){
+        res.status(500).json(err);
+    }
+});
+
+//delete comment
+router.delete("/delcomment/:id", async (req, res) => { 
+    try{
+        console.log(req.params.id)
+        //post id
+        const postId = req.params.id.split("$")[0];
+        //user id
+        const userId = req.params.id.split("$")[1];
+        
+        //find the post with the id
+        const post = await Post.findById(postId);
+        console.log("The find post: " + post.comments)
+    
+        const comments = post.comments;
+        //find the comments wanted to be deleted
+        for (let index = 0; index < comments.length; index++) {
+            const element = comments[index];
+            if(element.userId === userId){
+                console.log(element);
+                await post.updateOne({$pull:{comments: element}});
+                res.status(200).json("Your comments has been deleted.");
+            }
+            break;
+        }
+    
+        
+    }catch(err){
+        res.status(500).json(err);
+    }
+});
+
 //delete a post
 router.delete("/:id", async (req, res) => { 
     try{
