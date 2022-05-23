@@ -8,7 +8,7 @@ import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "fir
 
 
 
-export default function Share() {
+export default function Share({avatar}) {
 
     //environment variable PF = public folder
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -60,27 +60,27 @@ export default function Share() {
         }
     }
 
-    //set profimg and coverimg
+    // //set profimg and coverimg
     
-    const [avatar, setAvatar] = useState("");
+    // const [avatar, setAvatar] = useState("");
 
-    // Create a reference to the file we want to download
-    const storage = getStorage();
+    // // Create a reference to the file we want to download
+    // const storage = getStorage();
 
-    //avatar
-    useEffect(()=>{
-        if (user.profilePicture){
+    // //avatar
+    // useEffect(()=>{
+    //     if (user.profilePicture){
 
-            // Create a reference to the file we want to download
+    //         // Create a reference to the file we want to download
             
-            const starsRef = ref(storage, 'public/images/' + user.profilePicture);
-            getDownloadURL(starsRef)
-                .then((url) => {
-                    // Insert url into an <img> tag to "download"
-                    setAvatar(url);
-                })
-        }
-    }, [user.profilePicture, storage]);
+    //         const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+    //         getDownloadURL(starsRef)
+    //             .then((url) => {
+    //                 // Insert url into an <img> tag to "download"
+    //                 setAvatar(url);
+    //             })
+    //     }
+    // }, [user.profilePicture, storage]);
 
 
 

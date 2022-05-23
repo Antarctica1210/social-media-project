@@ -12,7 +12,7 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+// import ButtonGroup from '@mui/material/ButtonGroup';
 
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -25,8 +25,9 @@ import { useState, useEffect, useContext } from "react";
 
 //firebase
 import { storage } from "../../firebase";
-import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
-//firebase
+import { ref, uploadBytes } from "firebase/storage";
+//socket.io
+import { io } from "socket.io-client";
 
 
 //ant design
@@ -43,7 +44,7 @@ const Input = styled('input')({
 
 
 
-export default function EditInfo() {
+export default function EditInfo({cover, avatar}) {
 
     //environment variable PF = public folder
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -96,6 +97,11 @@ export default function EditInfo() {
         
     }
 
+    // const socket = useRef();
+    // useEffect(()=>{
+    //     socket.current = io("ws://localhost:8900");
+    // })
+
     const history = useHistory();
 
     const logout = ()=>{
@@ -109,6 +115,7 @@ export default function EditInfo() {
                 message.success("logout successfully");
                 //to login apge
                 history.push("/login");
+                window.location.reload();
             },
             onCancel(){
                 message.success("Keep editing");
@@ -194,42 +201,42 @@ export default function EditInfo() {
         }
     }
 
-    //set profimg and coverimg
-    const [cover, setCover] = useState("");
-    const [avatar, setAvatar] = useState("");
+    // //set profimg and coverimg
+    // const [cover, setCover] = useState("");
+    // const [avatar, setAvatar] = useState("");
 
-    // Create a reference to the file we want to download
-    const storage = getStorage();
+    // // Create a reference to the file we want to download
+    // const storage = getStorage();
 
-    //cover
-    useEffect(()=>{
-        if (currentUser.coverPicture){
+    // //cover
+    // useEffect(()=>{
+    //     if (currentUser.coverPicture){
 
-            // Create a reference to the file we want to download
+    //         // Create a reference to the file we want to download
             
-            const starsRef = ref(storage, 'public/images/' + currentUser.coverPicture);
-            getDownloadURL(starsRef)
-                .then((url) => {
-                    // Insert url into an <img> tag to "download"
-                    setCover(url);
-                })
-        }
-    }, [currentUser.coverPicture, storage]);
+    //         const starsRef = ref(storage, 'public/images/' + currentUser.coverPicture);
+    //         getDownloadURL(starsRef)
+    //             .then((url) => {
+    //                 // Insert url into an <img> tag to "download"
+    //                 setCover(url);
+    //             })
+    //     }
+    // }, [currentUser.coverPicture, storage]);
 
-    //avatar
-    useEffect(()=>{
-        if (currentUser.profilePicture){
+    // //avatar
+    // useEffect(()=>{
+    //     if (currentUser.profilePicture){
 
-            // Create a reference to the file we want to download
+    //         // Create a reference to the file we want to download
             
-            const starsRef = ref(storage, 'public/images/' + currentUser.profilePicture);
-            getDownloadURL(starsRef)
-                .then((url) => {
-                    // Insert url into an <img> tag to "download"
-                    setAvatar(url);
-                })
-        }
-    }, [currentUser.profilePicture, storage]);
+    //         const starsRef = ref(storage, 'public/images/' + currentUser.profilePicture);
+    //         getDownloadURL(starsRef)
+    //             .then((url) => {
+    //                 // Insert url into an <img> tag to "download"
+    //                 setAvatar(url);
+    //             })
+    //     }
+    // }, [currentUser.profilePicture, storage]);
 
 
 

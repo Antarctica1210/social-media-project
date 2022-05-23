@@ -35,6 +35,10 @@ const authRoute = require("./routes/auth");
 //post route
 const postRoute = require("./routes/posts");
 
+const conversationRoute = require("./routes/conversations");
+
+const messageRoute = require("./routes/messages");
+
 /*=========================================================*/
 
 
@@ -99,6 +103,10 @@ app.get("/",(req, res)=>{
 app.get("/users",(req, res)=>{
     res.send("Welcome to user!")
 })
+
+app.use("/api/conversations", conversationRoute);
+
+app.use("/api/messages", messageRoute);
 
 /*=========================================================*/
 

@@ -1,12 +1,12 @@
 import "./rightbar.css"
 import Online from "../online/Online"
-import { Users } from "../../dummyData"
+// import { Users } from "../../dummyData"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {Add, Remove} from "@material-ui/icons";
-import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+// import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
 import RightBarFriends from "../rightBarFriends/RightBarFriends";
 import { Carousel, Image } from 'antd';
 
@@ -132,30 +132,30 @@ export default function Rightbar({ user }) {
 
     const ProfileRightbar = () => {
 
-        //environment variable PF = public folder
-        const PF = process.env.REACT_APP_PUBLIC_FOLDER
+        // //environment variable PF = public folder
+        // const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
-        //set profimg and coverimg
+        // //set profimg and coverimg
         
-        const [avatar, setAvatar] = useState("");
+        // const [avatar, setAvatar] = useState("");
 
-        // Create a reference to the file we want to download
-        const storage = getStorage();
+        // // Create a reference to the file we want to download
+        // const storage = getStorage();
 
-        //avatar
-        useEffect(()=>{
-            if (user.profilePicture){
+        // //avatar
+        // useEffect(()=>{
+        //     if (user.profilePicture){
 
-                // Create a reference to the file we want to download
+        //         // Create a reference to the file we want to download
                 
-                const starsRef = ref(storage, 'public/images/' + user.profilePicture);
-                getDownloadURL(starsRef)
-                    .then((url) => {
-                        // Insert url into an <img> tag to "download"
-                        setAvatar(url);
-                    })
-            }
-        }, [user.profilePicture, storage]);
+        //         const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+        //         getDownloadURL(starsRef)
+        //             .then((url) => {
+        //                 // Insert url into an <img> tag to "download"
+        //                 setAvatar(url);
+        //             })
+        //     }
+        // }, [storage]);
 
         return (
             <>

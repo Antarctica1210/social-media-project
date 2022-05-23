@@ -1,6 +1,6 @@
 import React, {useEffect, useState}from 'react'
 import "./online.css";
-import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+import { ref, getStorage, getDownloadURL } from "firebase/storage";
 
 
 
@@ -34,7 +34,7 @@ export default function Online({user}) {
         <li key={user._id} className="rightbarFriend">
             <div className="rightbarProfileImgContainer">
                 <img className="rightbarProfileImg" src={user.profilePicture? avatar: PF+"person/noAvatar.png"} alt="" />
-                <span className="rightbarOnline"></span>
+                {/* <span className="rightbarOnline"></span> */}
             </div>
             <span className="rightbarUsername">{user.username}</span>
         </li>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect} from 'react';
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import {Link} from "react-router-dom";
@@ -64,15 +64,18 @@ export default function Topbar() {
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
                         <Person />
-                        <span className="topbarIconBadge">1</span>
+                        {/* <span className="topbarIconBadge">1</span> */}
                     </div>
                     <div className="topbarIconItem">
-                        <Chat />
-                        <span className="topbarIconBadge">1</span>
+                        <Link to="/messenger" style={{textDecoration:"none" , color: "white"}}>
+                            <Chat />
+                            {/* <span className="topbarIconBadge">1</span> */}
+                        </Link>
+                        
                     </div>
                     <div className="topbarIconItem">
                         <Notifications />
-                        <span className="topbarIconBadge">1</span>
+                        {/* <span className="topbarIconBadge">1</span> */}
                     </div>
                 </div>
 

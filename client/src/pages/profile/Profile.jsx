@@ -10,7 +10,7 @@ import {useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import EditInfo from '../../components/editInfo/EditInfo'
 //firebase
-import { getStorage, ref, getDownloadURL,  deleteObject } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 //ant design
 import { Modal, message, } from "antd";
@@ -25,7 +25,7 @@ export default function Profile() {
     const [user, setUser] = useState({});
     const username = useParams().username;
     //context
-    const {user:currentUser, dispatch} = useContext(AuthContext);
+    const {user:currentUser} = useContext(AuthContext);
     // console.log(username);
     //used to go into edit page
     const [isEdit, setIsEdit] = useState(false);
@@ -42,7 +42,7 @@ export default function Profile() {
         fetchUser();
     }, [username]);
 
-    //set images
+    // set images
     // Create a reference to the file we want to download
     const storage = getStorage();
 
@@ -99,7 +99,7 @@ export default function Profile() {
 
     return (
         <>
-            <Topbar />
+            <Topbar cover={cover} avatar = {avatar}/>
             <div className="profile">
                 <Sidebar />
                 <div className="profileRight">
@@ -125,7 +125,7 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className="profileRightBottom">
-                        {isEdit?<EditInfo owner={currentUser}/>:<Feed username={username} />}
+                        {isEdit?<EditInfo owner={currentUser} cover={cover} avatar={avatar}/>:<Feed username={username} avatar={avatar}/>}
                         
                         <Rightbar user={user} />
                     </div>
