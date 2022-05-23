@@ -1,10 +1,10 @@
-import React, { useContext, useRef, useState, useEffect } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import "./share.css"
 import { PermMedia, Label, Room, EmojiEmotions, Cancel } from "@material-ui/icons"
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
 import { storage } from "../../firebase";
-import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 
 

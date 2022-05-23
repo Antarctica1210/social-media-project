@@ -21,13 +21,13 @@ import { Cancel } from "@material-ui/icons"
 
 
 import { AuthContext } from "../../context/AuthContext";
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext } from "react";
 
 //firebase
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 //socket.io
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 
 //ant design

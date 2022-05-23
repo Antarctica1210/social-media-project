@@ -9,7 +9,7 @@ import {format} from "timeago.js";
 import {Link} from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
 //ant design
-import { Modal, message, Image, Button } from "antd";
+import { Modal, message, Image } from "antd";
 import "antd/dist/antd.css";
 //firebase
 import { getStorage, ref, getDownloadURL,  deleteObject } from "firebase/storage";
