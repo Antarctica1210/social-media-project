@@ -74,6 +74,7 @@ export default function Messenger() {
     });
   }, [user]);
 
+  //get the conversation's info
   useEffect(() => {
     const getConversations = async () => {
       try {

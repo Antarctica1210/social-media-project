@@ -7,6 +7,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   const [friends, setFriends] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
 
+  //get my friend and his data
   useEffect(() => {
     const getFriends = async () => {
       const res = await axios.get("/users/friends/" + currentId);
@@ -20,6 +21,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
     setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
   }, [friends, onlineUsers]);
 
+  //get the conversations and connect to socket.io
   const handleClick = async (user) => {
     try {
       const res = await axios.get(
