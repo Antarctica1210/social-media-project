@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 //firebase
 import { storage } from "../../firebase";
-import { ref, uploadBytes, getStorage, getDownloadURL,  deleteObject } from "firebase/storage";
+import { ref, getDownloadURL} from "firebase/storage";
 
 export default function Home() {
     const {user} = useContext(AuthContext)
