@@ -94,3 +94,13 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+.emojiBlock{
+    display: flex;
+    align-items: center;
+}
+
+.emoji{
+    margin-left: 5px;
+    font-size: 30px;
+}

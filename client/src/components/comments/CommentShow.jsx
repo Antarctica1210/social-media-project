@@ -99,7 +99,7 @@ export default function CommentShow({comment}) {
                 avatar={<Avatar src={avatar} alt="Han Solo" />}
                 
                 content={
-                    <p>
+                    <p style={{fontSize: "18px"}}>
                         {comment.comment}
                     </p>
                 }

@@ -8,8 +8,10 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 //firebase
-import { ref,  getStorage, getDownloadURL } from "firebase/storage";
+import { ref, getStorage, getDownloadURL } from "firebase/storage";
 import TextField from '@mui/material/TextField';
+//emoji
+
 
 
 export default function Messenger() {
@@ -32,19 +34,19 @@ export default function Messenger() {
 
   //avatar
   useEffect(() => {
-      if (user.profilePicture) {
+    if (user.profilePicture) {
 
-          // Create a reference to the file we want to download
+      // Create a reference to the file we want to download
 
-          const starsRef = ref(storage, 'public/images/' + user.profilePicture);
-          getDownloadURL(starsRef)
-              .then((url) => {
-                  // Insert url into an <img> tag to "download"
-                  setAvatar(url);
-              })
-      }
+      const starsRef = ref(storage, 'public/images/' + user.profilePicture);
+      getDownloadURL(starsRef)
+        .then((url) => {
+          // Insert url into an <img> tag to "download"
+          setAvatar(url);
+        })
+    }
   }, [user, storage]);
-  
+
 
   //web socket ws://localhost:8900
   useEffect(() => {
@@ -131,9 +133,12 @@ export default function Messenger() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  
+
+
   return (
     <>
-      <Topbar avatar={avatar}/>
+      <Topbar avatar={avatar} />
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
@@ -157,6 +162,7 @@ export default function Messenger() {
                   ))}
                 </div>
                 <div className="chatBoxBottom">
+
                   <TextField
                     id="outlined-textarea"
                     className="chatMessageInput"
@@ -184,7 +190,7 @@ export default function Messenger() {
               onlineUsers={onlineUsers}
               currentId={user._id}
               setCurrentChat={setCurrentChat}
-              
+
             />
           </div>
         </div>

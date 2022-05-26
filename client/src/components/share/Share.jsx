@@ -1,10 +1,14 @@
 import React, { useContext, useRef, useState } from 'react'
+import {Link} from "react-router-dom";
 import "./share.css"
 import { PermMedia, Label, Room, EmojiEmotions, Cancel } from "@material-ui/icons"
+import { Dropdown, Menu, Space } from 'antd';
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
+//emoji
+import Picker from 'emoji-picker-react';
 
 
 
@@ -20,18 +24,24 @@ export default function Share({avatar}) {
 
     const [file, setFile] = useState(null);
     // const [per, setPerc] = useState(null);
+    const [chosenEmoji, setChosenEmoji] = useState(null);
 
-
-
+    const onEmojiClick = (event, emojiObject) => {
+        
+        setChosenEmoji(emojiObject);
+        
+    };
+    
 
     //submit post function
     const submitHandler = async (e) => {
         e.preventDefault();
         const newPost = {
             userId: user._id,
-            desc: desc.current.value,
+            desc: chosenEmoji? desc.current.value + chosenEmoji.emoji : desc.current.value,
 
         }
+
 
         try {
             
@@ -59,6 +69,14 @@ export default function Share({avatar}) {
             console.log(error);
         }
     }
+
+    //emoji manue
+    const menu = (
+        <>
+            <Picker onEmojiClick={onEmojiClick} />
+        </>
+        
+    );
 
     // //set profimg and coverimg
     
@@ -89,7 +107,7 @@ export default function Share({avatar}) {
             <div className="shareWrapper">
                 <div className="shareTop">
                     <img className='shareProfileImg' src={user.profilePicture ? avatar : PF + "person/noAvatar.png"} alt="" />
-                    <input placeholder={'What would like to share today ' + user.username + "?"} className="shareInput" ref={desc} />
+                    <input placeholder={'What would like to share today ' + user.username  + "?"} className="shareInput" ref={desc} />
                 </div>
                 <hr className='shareHr' />
                 {/* show files when we choose a file============================================================== */}
@@ -111,14 +129,34 @@ export default function Share({avatar}) {
                             <Label htmlColor='blue' className='shareIcon' />
                             <span className="shareOptionText">Tag</span>
                         </div>
-                        <div className="shareOption">
-                            <Room htmlColor='green' className='shareIcon' />
-                            <span className="shareOptionText">Location</span>
-                        </div>
+                        
                         <div className="shareOption">
                             <EmojiEmotions htmlColor='goldenrod' className='shareIcon' />
-                            <span className="shareOptionText">Feelings</span>
+                            <Dropdown overlay={menu} trigger={['click']}>
+                                <Link onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    Feelings
+                                    
+                                </Space>
+                                </Link>
+                            </Dropdown>
+                            {/* {chosenEmoji && console.log(chosenEmoji.emoji)} */}
+                            <div>
+                                {chosenEmoji ? (
+                                    
+                                    <div className='emojiBlock'>
+                                        <div className='emoji' onClick={() => setChosenEmoji(null)}>{chosenEmoji.emoji}</div>
+                                        
+                                    </div>
+                                
+                                    
+                                ) : (
+                                    <span></span>
+                                )}
+                                
+                            </div>
                         </div>
+                        
                     </div>
                     <button className="shareButton" type='submit'>Share</button>
                 </form>
