@@ -1,27 +1,27 @@
 export const LoginStart = (userCredentials) => ({
-    type: "LOGIN_START",
+  type: "LOGIN_START",
 });
 
 export const LoginSuccess = (user) => ({
-    type: "LOGIN_SUCCESS",
-    payload: user,
+  type: "LOGIN_SUCCESS",
+  payload: user,
 });
 
 export const LoginFailure = () => ({
-    type: "LOGIN_FAILURE",
+  type: "LOGIN_FAILURE",
 });
 
 export const Follow = (userId) => ({
-    type: "FOLLOW",
-    payload: userId,
+  type: "FOLLOW",
+  payload: userId,
 });
 
 export const Unfollow = (userId) => ({
-    type: "UNFOLLOW",
-    payload: userId,
+  type: "UNFOLLOW",
+  payload: userId,
 });
 
 export const EditUser = (editUser) => ({
-    type: "EDIT_INFO",
-    payload: editUser,
+  type: "EDIT_INFO",
+  payload: editUser,
 });
