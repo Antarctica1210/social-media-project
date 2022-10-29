@@ -2,7 +2,8 @@
 
 ## Introduction
 
-This is a Instargam-like social media app, allowing users add posts, add like and comments to the posts. Users can also follow, unfollow others. Basic functions include register, login and update personal information.
+This is a Instargam-like social media app for practice.
+It allowing users add posts, add like and comments to the posts. Users can also follow, unfollow others. Basic functions include register, login and update personal information.
 
 ## technical stacks
 
@@ -12,18 +13,4 @@ This is a Instargam-like social media app, allowing users add posts, add like an
 
 3. React.js
 
-## 25/03/2022
-
-User and Post object finished
-
-posts CRUD and users CRUD finished
-
-## 02/04/2022
-
-webpage UIs are completed (include simple functions like and dislike), the connection between webpages and server will be the next step
-
-Currently, different pages can be see by changing tags in App.js file: Home, Profile, Register and Login.
-
-## 05/04/2022
-
-Router has been used to navigate to different pages
+4. Firebase
