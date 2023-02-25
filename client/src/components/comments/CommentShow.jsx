@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Comment, Tooltip, Avatar, Input, Button, Modal, message } from "antd";
+import { Comment, Tooltip, Avatar, Modal, message } from "antd";
 import moment from "moment";
 import {
   getStorage,
   ref,
   getDownloadURL,
-  deleteObject,
 } from "firebase/storage";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
